@@ -1,6 +1,6 @@
 # Bitacora_Online
-QR Maintenance log for quick search on machinery background 
-Developed in 2019 as a added value item in a maintenance service in Talcahuano, Chile. 
+QR Maintenance log for quick search on machinery background. 
+Developed in 2019 for adding value in a maintenance service in Talcahuano, Chile. 
 
 <div align="center">
     <a href="http://hstech.cl/">
