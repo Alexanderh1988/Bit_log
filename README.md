@@ -8,7 +8,7 @@ Developed in 2019 as a added value item in a maintenance service in Talcahuano, 
         <img
             alt="PHP"
             src="https://github.com/Alexanderh1988/Bitacora_Online/blob/master/expl.png?raw=true"
-            width="150">
+            width="350">
     </a>
 </div>
 <div align="center">
@@ -16,6 +16,6 @@ Developed in 2019 as a added value item in a maintenance service in Talcahuano, 
         <img
             alt="PHP"
             src="https://github.com/Alexanderh1988/Bitacora_Online/blob/master/scrnshoot.png?raw=true"
-            width="150">
+            width="350">
  
 </div>
