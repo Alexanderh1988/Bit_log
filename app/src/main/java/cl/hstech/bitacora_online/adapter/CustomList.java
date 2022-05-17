@@ -1,4 +1,4 @@
-package cl.hstech.bitacora_online;
+package cl.hstech.bitacora_online.adapter;
 
 
 import android.annotation.SuppressLint;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
+import cl.hstech.bitacora_online.R;
 
 public class CustomList extends ArrayAdapter<String> {
 

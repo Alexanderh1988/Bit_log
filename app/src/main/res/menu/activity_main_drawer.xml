@@ -5,13 +5,43 @@
 
     <group android:checkableBehavior="single">
       <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/register" />
+            android:id="@+id/intro"
+            android:icon="@drawable/ic_baseline_info_24"
+            android:title="@string/intro" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/rate_app"
+            android:icon="@drawable/ic_baseline_star_rate_24"
+            android:title="@string/rate_app" />
+
+        <item
+            android:id="@+id/registrar"
             android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/register" />
+
+        <item
+            android:id="@+id/reciente"
+            android:icon="@drawable/ic_baseline_history_24"
             android:title="@string/recent" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_menu_share"
+            android:title="@string/share" />
+
+        <item
+            android:id="@+id/contact"
+            android:icon="@drawable/ic_baseline_message_24"
+            android:title="@string/contact" />
+
+        <item
+            android:id="@+id/manually_app"
+            android:icon="@drawable/ic_baseline_add_circle_outline_24"
+            android:title="@string/manually_app" />
+
+
+
+
+
 <!--        <item-->
 <!--            android:id="@+id/nav_slideshow"-->
 <!--            android:icon="@drawable/ic_menu_slideshow"-->

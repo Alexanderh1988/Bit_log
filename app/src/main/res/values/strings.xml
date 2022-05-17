@@ -16,14 +16,23 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="welcome1">welcome1</string>
-    <string name="nav_header_subtitle">dsdkjsds</string>
+    <string name="nav_header_subtitle">info@hstech.cl</string>
+
     <string name="nav_header_desc">Version 1.0 - 2019</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="nav_header_title">Bitacora en linea</string>
 
     <string name="edittext_hint"><font size="13">(Opcion de alarma al email)</font></string>
     <string name="register">Registrar</string>
     <string name="recent">Reciente</string>
+    <string name="manually_app">Agregar Manualmente</string>
+    <string name="contact">Contacto</string>
+    <string name="share">Compartir</string>
+    <string name="rate_app">Evaluar App</string>
+    <string name="intro">¿Como funciona?</string>
 
 
 </resources>
