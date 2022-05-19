@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class Register extends AppCompatActivity {
+    public class Register extends AppCompatActivity {
 
     Button b1, b2;
     EditText ed1, ed2;

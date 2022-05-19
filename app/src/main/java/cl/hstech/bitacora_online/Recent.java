@@ -15,7 +15,7 @@ public class Recent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
+        setContentView(R.layout.recent);
 
         if (list.getAdapter() == null) {
             listAdapter = new CustomList(this,MainActivity. getCodes(), null);

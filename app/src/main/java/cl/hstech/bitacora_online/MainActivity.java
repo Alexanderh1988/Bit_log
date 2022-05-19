@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,6 +26,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -48,7 +53,8 @@ import java.net.HttpCookie;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback,
-        NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener, NavigationMenuView.OnCreateContextMenuListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        NavigationMenuView.OnCreateContextMenuListener {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
     private static final int REQUEST_CODE = 123;
@@ -71,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private FirebaseDatabase mFirebaseDatabaseReference;
 
     MutableLiveData<Boolean> isLocationPermissionSetted;
-    NavigationView navigationView;
+    private NavigationView navigationView;
+    private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,17 +89,26 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         isLocationPermissionSetted.setValue(false);
 
         setContentView(R.layout.activity_main);
-        setTitle("Escaner QR");
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setTitle(getApplicationContext().getPackageName());
+
+       Toolbar toolbar = findViewById(R.id.toolbar);
+     setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+               R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
+   //    mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_share).
+     //           setDrawerLayout(drawer).
+       //         build();
+
+       drawer.addDrawerListener(toggle);
+       toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.bringToFront();
 
         verifyRequiredPermissions();
 
@@ -112,9 +128,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(view -> {
-            if (mFirebaseUserId == null)
-                startActivity(new Intent(MainActivity.this, SignIn.class));
-            else         startActivity(new Intent(this, ManualAdd.class));
+        //    if (mFirebaseUserId == null){
+             //   Toast.makeText(this, "Para agregar tiene que identificarse", Toast.LENGTH_SHORT).show();
+           //     startActivity(new Intent(MainActivity.this, SignIn.class));}
+            //else
+                startActivity(new Intent(this, ManualAdd.class));
         });
 
         surfaceView = findViewById(R.id.camerapreview);
@@ -357,6 +375,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
 
         if (id == R.id.rate_app) {
+
             try {
                 startActivity(new Intent(Intent.ACTION_VIEW,
                         Uri.parse("market://details?id=" + this.getPackageName())));
@@ -367,24 +386,12 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
 
         if (id == R.id.reciente) {
-            if (mFirebaseUser != null) {
-                startActivity(new Intent(this, Recent.class));
-            } else {
-                startActivity(new Intent(this, Register.class));
-            }
-        }
-//
-//        if (id == R.id.favorito) {
-//            startActivity(new Intent(MainActivity.this, Favoritos.class));
-//        }
-
-//      else  if (id == R.id.como_funciona) {
-//
-//            startActivity(new Intent(this, AppIntroduction.class).putExtra("firstStart", true));
-//            //startActivity(new Intent(MainActivity.this, Favoritos.class));
-//        }
-
-        else if (id == R.id.nav_share) {
+        //    if (mFirebaseUser != null) {
+         //       startActivity(new Intent(this, Recent.class));
+          //  } else {
+                startActivity(new Intent(this, SignIn.class));
+        //    }
+        } else if (id == R.id.nav_share) {
 
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
@@ -397,43 +404,17 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
             String url = "https://api.whatsapp.com/send?phone=56995371532";
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+
         } else if (id == R.id.manually_app) {
-
+            //    if (mFirebaseUser != null) {
+            //       startActivity(new Intent(this, Recent.class));
+            //  } else {
             startActivity(new Intent(this, ManualAdd.class));
+        //}
+        } else if (id == R.id.map) {
 
+            startActivity(new Intent(this, Mapa.class));
         }
-//        } else if (id == R.id.terminos) {
-//
-//            //link pendiente de la pagina
-//            String url = "https://cuponcity.cl/terminos-condiciones/";
-//            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//            startActivity(browserIntent);
-//        }
-
-//      else  if (id == R.id.share) {
-//
-//            Log.i("Send email", "");
-//
-//            String[] TO = {"emaildedestinatario@gmail.com"};
-//            String[] CC = {"xyz@gmail.com"};
-//            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-//            emailIntent.setData(Uri.parse("mailto:" + TO));
-//
-//            emailIntent.setType("message/rfc822");
-//
-//            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-//            emailIntent.putExtra(Intent.EXTRA_CC, CC);
-//            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Asunto");
-//            emailIntent.putExtra(Intent.EXTRA_TEXT, "Estimados me encantó su aplicacion");
-//
-//            try {
-//                startActivity(Intent.createChooser(emailIntent, "Elige con que aplicacion enviar el email..."));
-//
-//            } catch (android.content.ActivityNotFoundException ex) {
-//                Toast.makeText(MainActivity.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -448,6 +429,14 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 //        if (id == R.id.search) {
 //            startActivity(new Intent(MainActivity.this, Search.class));
 //        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 

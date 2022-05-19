@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    android:background="@drawable/background"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:layout_weight="4"/>
+
+        <Button
+            android:id="@+id/buscar_promo"
+            android:text="@string/search"
+            android:layout_width="30dp"
+            android:minWidth="30dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:padding="0dp"
+            android:shadowColor="#A86518"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:textColor="#FFC53D"
+            android:textSize="12dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:weightSum="6">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:paddingHorizontal="5dp"
+                android:text="Maquina" />
+
+            <CheckBox
+                android:id="@+id/buscar_nombre_local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:paddingHorizontal="5dp"
+                android:text="Sector" />
+
+            <CheckBox
+                android:id="@+id/buscar_tipo_comida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/buscar_sugerencias"
+        android:text="Sugerencias"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:paddingLeft="10dp"/>
+
+    <ListView
+        android:id="@+id/localesnombres"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--<android.support.v7.widget.AppCompatAutoCompleteTextView
+        android:id=”@+id/autoTextView”
+    android:layout_width=”match_parent”
+    android:layout_height=”wrap_content”
+    android:hint=”Enter fruit name”
+    android:textColor=”#000000"
+    android:textColorHint=”#000000" />-->
+
+
+</LinearLayout>
