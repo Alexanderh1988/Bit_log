@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bitacora Online</string>
+    <string name="app_name">Bit Log</string>
     <string name="tab_text_1">Inicio</string>
     <string name="tab_text_2">Historico</string>
     <string name="detalle">Detalle</string>
@@ -37,6 +37,7 @@
     <string name="Mapa">Mapa</string>
     <string name="title_activity_mapa1">Map</string>
     <string name="search">Buscar</string>
+    <string name="sign_out">Deslogearse</string>
 
 
 </resources>

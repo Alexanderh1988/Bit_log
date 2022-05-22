@@ -11,19 +11,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import cl.hstech.bitacora_online.databinding.ActivityMapa1Binding;
+//import cl.hstech.bitacora_online.databinding.ActivityMapa1Binding;
 
 public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivityMapa1Binding binding;
+    //private ActivityMapa1Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMapa1Binding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+       // binding = ActivityMapa1Binding.inflate(getLayoutInflater());
+       // setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()

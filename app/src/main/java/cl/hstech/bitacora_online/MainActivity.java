@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -54,7 +55,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback,
         NavigationView.OnNavigationItemSelectedListener,
-        NavigationMenuView.OnCreateContextMenuListener {
+        NavigationMenuView.OnCreateContextMenuListener /*, OnNavigationItemSelectedListener*/ {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
     private static final int REQUEST_CODE = 123;
@@ -91,21 +92,22 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         setContentView(R.layout.activity_main);
         setTitle(getApplicationContext().getPackageName());
 
-       Toolbar toolbar = findViewById(R.id.toolbar);
-     setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Bit Log");
+        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-               R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
-   //    mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_share).
-     //           setDrawerLayout(drawer).
-       //         build();
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_share).
+                setDrawerLayout(drawer).
+                build();
 
-       drawer.addDrawerListener(toggle);
-       toggle.syncState();
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.bringToFront();
@@ -128,11 +130,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(view -> {
-        //    if (mFirebaseUserId == null){
-             //   Toast.makeText(this, "Para agregar tiene que identificarse", Toast.LENGTH_SHORT).show();
-           //     startActivity(new Intent(MainActivity.this, SignIn.class));}
+            //    if (mFirebaseUserId == null){
+            //   Toast.makeText(this, "Para agregar tiene que identificarse", Toast.LENGTH_SHORT).show();
+            //     startActivity(new Intent(MainActivity.this, SignIn.class));}
             //else
-                startActivity(new Intent(this, ManualAdd.class));
+            startActivity(new Intent(this, ManualAdd.class));
         });
 
         surfaceView = findViewById(R.id.camerapreview);
@@ -386,11 +388,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
 
         if (id == R.id.reciente) {
-        //    if (mFirebaseUser != null) {
-         //       startActivity(new Intent(this, Recent.class));
-          //  } else {
-                startActivity(new Intent(this, SignIn.class));
-        //    }
+            //    if (mFirebaseUser != null) {
+            //       startActivity(new Intent(this, Recent.class));
+            //  } else {
+            startActivity(new Intent(this, SignIn.class));
+            //    }
         } else if (id == R.id.nav_share) {
 
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -402,15 +404,24 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         } else if (id == R.id.contact) {
 
-            String url = "https://api.whatsapp.com/send?phone=56995371532";
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+            String[] TO = {""};
+            String[] CC = {""};
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+            emailIntent.setData(Uri.parse("mailto:"));
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+            emailIntent.putExtra(Intent.EXTRA_CC, CC);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+
 
         } else if (id == R.id.manually_app) {
             //    if (mFirebaseUser != null) {
             //       startActivity(new Intent(this, Recent.class));
             //  } else {
             startActivity(new Intent(this, ManualAdd.class));
-        //}
+            //}
         } else if (id == R.id.map) {
 
             startActivity(new Intent(this, Mapa.class));
@@ -426,15 +437,16 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         int id = item.getItemId();
 
-//        if (id == R.id.search) {
-//            startActivity(new Intent(MainActivity.this, Search.class));
-//        }
+        if (id == R.id.search) {
+             startActivity(new Intent(MainActivity.this, Search.class));
+         }
         return true;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main, menu);
 
         return true;
@@ -443,4 +455,10 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     public static ArrayList<String> getCodes() {
         return codesVisited;
     }
+
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
+//    }
 }
