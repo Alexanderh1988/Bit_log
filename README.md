@@ -1,4 +1,5 @@
-# Bitacora_Online
+# BitLog
+
 QR Maintenance log for quick search on machinery background. 
 Developed in 2019 for adding value in a maintenance service in Talcahuano, Chile. 
 
