@@ -2,6 +2,7 @@
 
 QR Maintenance log for quick search on machinery background. 
 Developed in 2019 for adding value in a maintenance service in Talcahuano, Chile. 
+Credit to Marcelo Gonzalez, Graphic Designer https://mgfotos.cl/
 
 <div align="center">
     <a href="http://hstech.cl/">
