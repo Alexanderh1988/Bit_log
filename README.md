@@ -21,7 +21,7 @@ Credit to Marcelo Gonzalez, Graphic Designer https://mgfotos.cl/
         <br>
          <img
             alt="PHP"
-            src="   https://github.com/Alexanderh1988/Bit_log/blob/master/scrnshoot2.png?raw=true"
+            src="https://github.com/Alexanderh1988/Bit_log/blob/master/scrnshoot2.png?raw=true"
             width="300">
      
  
