@@ -1,4 +1,4 @@
-package cl.hstech.bitacora_online;
+package cl.hstech.log;
 
 import android.content.Context;
 

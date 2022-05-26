@@ -1,4 +1,4 @@
-package cl.hstech.bitacora_online;
+package cl.hstech.bitlog;
 
 import androidx.fragment.app.FragmentActivity;
 
@@ -11,7 +11,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-//import cl.hstech.bitacora_online.databinding.ActivityMapa1Binding;
+import cl.hstech.bitlog.R;
 
 public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 

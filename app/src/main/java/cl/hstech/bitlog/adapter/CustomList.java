@@ -1,8 +1,6 @@
-package cl.hstech.bitacora_online.adapter;
+package cl.hstech.bitlog.adapter;
 
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
-import cl.hstech.bitacora_online.R;
+import cl.hstech.bitlog.R;
+
 
 public class CustomList extends ArrayAdapter<String> {
 

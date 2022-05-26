@@ -1,4 +1,4 @@
-package cl.hstech.bitacora_online.ui.gallery;
+package cl.hstech.bitlog.ui.gallery;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import cl.hstech.bitacora_online.R;
+import cl.hstech.bitlog.R;
 
 public class GalleryFragment extends Fragment {
 

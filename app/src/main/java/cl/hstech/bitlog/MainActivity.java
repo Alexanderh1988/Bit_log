@@ -1,4 +1,4 @@
-package cl.hstech.bitacora_online;
+package cl.hstech.bitlog;
 
 import android.Manifest;
 import android.content.Context;
@@ -14,12 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,20 +25,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.MutableLiveData;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.internal.NavigationMenuView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,8 +43,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
-import java.net.HttpCookie;
 import java.util.ArrayList;
+
+import cl.hstech.bitlog.R;
+import cl.hstech.bitlog.helpers.DatabaseQueries;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback,
         NavigationView.OnNavigationItemSelectedListener,
@@ -67,19 +62,14 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     TextView textView;
     BarcodeDetector barcodeDetector;
 
-
-    private static ArrayList<String> codes = new ArrayList<>();
-    private static ArrayList<String> codesVisited = new ArrayList<>();
+    static ArrayList<String> codes = new ArrayList<>();
+    static ArrayList<String> codesVisited = new ArrayList<>();
     static ArrayList<String> picture = new ArrayList<>();
-
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
-    private String mFirebaseUserId;
-    private FirebaseDatabase mFirebaseDatabaseReference;
 
     MutableLiveData<Boolean> isLocationPermissionSetted;
     private NavigationView navigationView;
     private AppBarConfiguration mAppBarConfiguration;
+    static DatabaseQueries mQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,22 +109,17 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 ActivityCompat.requestPermissions(this, new String[]{mPermission[i]}, REQUEST_CODE_PERMISSION);
             }
         }
-        // .putExtra("foto",foto.get(Integer.parseInt(qrCodes.valueAt(0).displayValue)));
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
-        if (mFirebaseUser != null)
-            mFirebaseUserId = mFirebaseUser.getUid();
+        //Database Initiation:
+       mQuery = new DatabaseQueries();
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(view -> {
-            //    if (mFirebaseUserId == null){
-            //   Toast.makeText(this, "Para agregar tiene que identificarse", Toast.LENGTH_SHORT).show();
-            //     startActivity(new Intent(MainActivity.this, SignIn.class));}
-            //else
-            startActivity(new Intent(this, ManualAdd.class));
+            if (mQuery.getmFirebaseUserId() == null) {
+                Toast.makeText(this, "Para agregar tiene que identificarse", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, SignIn.class));
+            } else
+                startActivity(new Intent(this, ManualAdd.class));
         });
 
         surfaceView = findViewById(R.id.camerapreview);
@@ -171,12 +156,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             }
 
         });
-        // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        mFirebaseDatabaseReference = FirebaseDatabase.getInstance();
-        DatabaseReference equipmentRef = mFirebaseDatabaseReference.getReference("equipmentId");
-
-        equipmentRef.addValueEventListener(new ValueEventListener() {
+        mQuery.getmEquipmentIdRef().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
@@ -190,44 +171,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
             }
         });
-
-        // Write a message to the database
-        // FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //  DatabaseReference myRef = database.getReference();
-        //bd: https://console.firebase.google.com/u/0/project/hstechinspection/database/hstechinspection/rules
-        // Read from the database
-
-//        myRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // This method is called once with the initial value and again
-//                // whenever data at this location is updated.
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//
-//                    Log.d("itera", String.valueOf(snapshot.getValue()));
-//                    Log.d("itera1", snapshot.getKey());
-//                    Log.d("itera2", String.valueOf(snapshot));
-//                    Log.d("itera3", String.valueOf(snapshot.child("foto").getValue()));
-//                    Log.d("itera4", String.valueOf(snapshot.child("Personal").getValue()));
-//
-//                    //codigos.add(snapshot.getKey());
-//                    codigos.add(String.valueOf(snapshot.getKey()));
-//                    foto.add(String.valueOf(snapshot.child("foto").getValue()));
-//                    //personal.add(String.valueOf(snapshot.child("Personal").getValue()));
-//             /*       personal[0][0] = String.valueOf(snapshot.child("Personal").getKey());
-//                    personal[0][1] = String.valueOf(snapshot.child("Personal").getValue();*/
-//                }
-//
-////                String value = dataSnapshot.getValue(String.class);
-//                //        Log.d("basededatos", "Value is: " + value);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                // Failed to read value
-//                Log.w("basededatos", "Failed to read value.", error.toException());
-//            }
-//        });
 
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
 
@@ -245,24 +188,21 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     //  barcodeDetector.release();
                     Log.d("detectado", qrCodes.valueAt(0).displayValue);
 
-                    textView.post(new Runnable() {
-                        @Override
-                        public void run() {
+                    textView.post(() -> {
 
-                            Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(400);
-                            textView.setText(qrCodes.valueAt(0).displayValue);
-                            if (IsCodeRecognized(qrCodes.valueAt(0).displayValue)) {
-                                //  Toast.makeText(getApplicationContext(), "Se encontró codigo", Toast.LENGTH_SHORT).show();
-                                surfaceView.setVisibility(surfaceView.INVISIBLE);
-                                Intent IrAlDetalle = new Intent(MainActivity.this, Details.class).putExtra("Codigo", qrCodes.valueAt(0).displayValue).putExtra("foto", picture.get(codes.indexOf(qrCodes.valueAt(0).displayValue)));
-                                startActivity(IrAlDetalle);
-                                //  surfaceView.setVisibility(surfaceView.VISIBLE);
-                            } else
-                                Toast.makeText(getApplicationContext(), "No esta en nuestra base de datos", Toast.LENGTH_SHORT).show();
-                            surfaceView.setVisibility(surfaceView.VISIBLE);
+                        Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                        vibrator.vibrate(400);
+                        textView.setText(qrCodes.valueAt(0).displayValue);
+                        if (IsCodeRecognized(qrCodes.valueAt(0).displayValue)) {
+                            //  Toast.makeText(getApplicationContext(), "Se encontró codigo", Toast.LENGTH_SHORT).show();
+                            surfaceView.setVisibility(surfaceView.INVISIBLE);
+                            Intent IrAlDetalle = new Intent(MainActivity.this, Details.class).putExtra("Codigo", qrCodes.valueAt(0).displayValue).putExtra("foto", picture.get(codes.indexOf(qrCodes.valueAt(0).displayValue)));
+                            startActivity(IrAlDetalle);
+                            //  surfaceView.setVisibility(surfaceView.VISIBLE);
+                        } else
+                            Toast.makeText(getApplicationContext(), "No esta en nuestra base de datos", Toast.LENGTH_SHORT).show();
+                        surfaceView.setVisibility(surfaceView.VISIBLE);
 
-                        }
                     });
                 } else
                     textView.post(new Runnable() {
@@ -301,6 +241,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_CODE:
                 for (int result : grantResults) {
@@ -416,11 +357,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
 
 
-        } else if (id == R.id.manually_app) {
+        } else if (id == R.id.qr_assign) {
             //    if (mFirebaseUser != null) {
             //       startActivity(new Intent(this, Recent.class));
             //  } else {
-            startActivity(new Intent(this, ManualAdd.class));
+            setTitle("Reasignar codigo");
             //}
         } else if (id == R.id.map) {
 
@@ -438,8 +379,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         int id = item.getItemId();
 
         if (id == R.id.search) {
-             startActivity(new Intent(MainActivity.this, Search.class));
-         }
+            startActivity(new Intent(MainActivity.this, Search.class));
+        }
         return true;
     }
 

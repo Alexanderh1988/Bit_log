@@ -13,38 +13,43 @@
             android:layout_height="0dp"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Codigo maquina:  923418213" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Mantencion" />
+                android:text=" Equipment" />
 
-            <EditText
-                android:id="@+id/ingreso_horario"
+            <TextView
+                android:id="@+id/machine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/detail_data"
+                android:text=" Equipment name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" picture" />
+
+            <ImageView
+                android:id="@+id/picture_detail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Horario de atencion"
-                android:inputType="text"
-                android:maxHeight="200dp"
-                android:theme="@style/EditTextTheme" />
+                android:layout_height="150dp"
+                android:padding="10dp"
+                android:textSize="@dimen/detail_data"
+                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Mantencion" />
+                android:text=" Last Seen" />
 
-            <EditText
-                android:id="@+id/ingreso_horarios"
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/detail_last_seen"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Horario de atencion"
-                android:inputType="text"
-                android:maxHeight="200dp"
-                android:theme="@style/EditTextTheme" />
+                android:layout_height="200dp"/>
+
+
         </LinearLayout>
     </ScrollView>
 

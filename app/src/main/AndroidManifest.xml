@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cl.hstech.bitacora_online">
+    package="cl.hstech.bitlog">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -26,10 +25,12 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
 
         <activity
-            android:name=".MainActivity"
+            android:name="cl.hstech.bitlog.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:exported="true"
+            android:icon="@drawable/app_icon"
+            android:roundIcon="@drawable/app_icon"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,25 +51,25 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Mapa"
+            android:name="cl.hstech.bitlog.Mapa"
             android:label="@string/title_activity_mapa1"></activity>
 
         <activity
-            android:name=".Details"
+            android:name="cl.hstech.bitlog.Details"
             android:label="@string/detalle"></activity>
 
         <activity
-            android:name=".Recent"
+            android:name="cl.hstech.bitlog.Recent"
             android:label="@string/recent"></activity>
         <activity
-            android:name=".Register"
+            android:name="cl.hstech.bitlog.Signup"
             android:label="@string/register"></activity>
         <activity
-            android:name=".Search"
+            android:name="cl.hstech.bitlog.Search"
             android:label="@string/search"></activity>
 
         <activity
-            android:name=".SignIn"
+            android:name="cl.hstech.bitlog.SignIn"
             android:label="@string/action_sign_in"></activity>
 
     </application>

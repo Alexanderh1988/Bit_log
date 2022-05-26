@@ -1,13 +1,10 @@
-package cl.hstech.bitacora_online;
+package cl.hstech.bitlog;
 
 import android.os.Bundle;
-import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
-import cl.hstech.bitacora_online.adapter.CustomList;
+import cl.hstech.bitlog.R;
 
 public class ManualAdd extends AppCompatActivity {
 

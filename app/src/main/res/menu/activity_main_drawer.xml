@@ -39,6 +39,11 @@
             android:title="@string/manually_app" />
 
         <item
+            android:id="@+id/qr_assign"
+            android:icon="@drawable/ic_baseline_qr_code_24"
+            android:title="@string/qr_assign" />
+
+        <item
             android:id="@+id/map"
             android:icon="@drawable/ic_baseline_map_24"
             android:title="@string/map" />

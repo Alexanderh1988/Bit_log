@@ -38,6 +38,7 @@
     <string name="title_activity_mapa1">Map</string>
     <string name="search">Buscar</string>
     <string name="sign_out">Deslogearse</string>
+    <string name="qr_assign">Reasignar codigo QR</string>
 
 
 </resources>
