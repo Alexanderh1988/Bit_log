@@ -39,6 +39,8 @@
     <string name="search">Buscar</string>
     <string name="sign_out">Deslogearse</string>
     <string name="qr_assign">Reasignar codigo QR</string>
+    <string name="intro_slider">Introduccion</string>
+    <string name="intro_text">Bienvenidos</string>
 
 
 </resources>

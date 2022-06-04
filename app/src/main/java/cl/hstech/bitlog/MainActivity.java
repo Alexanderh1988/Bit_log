@@ -3,11 +3,13 @@ package cl.hstech.bitlog;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Menu;
@@ -70,14 +72,30 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private NavigationView navigationView;
     private AppBarConfiguration mAppBarConfiguration;
     static DatabaseQueries mQuery;
+    //variables de introduccion:
+    static SharedPreferences sharedPreferences;
+    public static String COMPLETED_ONBOARDING_PREF_NAME = "intro";
+    Boolean goToAppIntro = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+        CheckUpdates();
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        SharedPreferences.Editor sharedPreferencesEditor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+        sharedPreferencesEditor.putBoolean(COMPLETED_ONBOARDING_PREF_NAME, true);
+
         isLocationPermissionSetted = new MutableLiveData<>();
         isLocationPermissionSetted.setValue(false);
+
+        if (!sharedPreferences.getBoolean(COMPLETED_ONBOARDING_PREF_NAME, false)) {
+            startActivity(new Intent(this, AppIntroduction.class));
+        } else
+        {  verifyRequiredPermissions(); }
 
         setContentView(R.layout.activity_main);
         setTitle(getApplicationContext().getPackageName());
@@ -93,8 +111,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.nav_home, R.id.nav_share).
-                setDrawerLayout(drawer).
-                build();
+                setDrawerLayout(drawer).build();
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -102,15 +119,15 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.bringToFront();
 
-        verifyRequiredPermissions();
 
-        for (int i = 0; i < mPermission.length; i++) {
-            if (ActivityCompat.checkSelfPermission(this, mPermission[i]) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{mPermission[i]}, REQUEST_CODE_PERMISSION);
-            }
-        }
+
+//        for (int i = 0; i < mPermission.length; i++) {
+//            if (ActivityCompat.checkSelfPermission(this, mPermission[i]) != PackageManager.PERMISSION_GRANTED) {
+//                ActivityCompat.requestPermissions(this, new String[]{mPermission[i]}, REQUEST_CODE_PERMISSION);
+//            }
+//        }
         //Database Initiation:
-       mQuery = new DatabaseQueries();
+        mQuery = new DatabaseQueries();
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
@@ -216,6 +233,10 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     }   //on create
 
+    private void CheckUpdates() {
+        //check updates in playstore
+    }
+
     private void verifyRequiredPermissions() {
 
         //  noPermission = findViewById(R.id.noPermissionDialog);
@@ -310,6 +331,13 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 //
 //            startActivity(new Intent(MainActivity.this, Mapa.class));
 //            }
+
+
+        if (id == R.id.intro) {
+
+            startActivity(new Intent(this, AppIntroduction.class));
+
+        }
 
         if (id == R.id.registrar) {
 

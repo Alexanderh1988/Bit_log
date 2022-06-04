@@ -20,18 +20,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
-         android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme">
 
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-
+        android:icon="@drawable/app_icon"
         <activity
             android:name="cl.hstech.bitlog.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
             android:exported="true"
-            android:icon="@drawable/app_icon"
+            android:icon="@mipmap/app_icon"
+            android:label="@string/app_name"
             android:roundIcon="@drawable/app_icon"
-            >
+
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -52,25 +52,29 @@
 
         <activity
             android:name="cl.hstech.bitlog.Mapa"
-            android:label="@string/title_activity_mapa1"></activity>
+            android:label="@string/title_activity_mapa1"/>
+
+        <activity
+            android:name="cl.hstech.bitlog.AppIntroduction"
+            android:label="@string/intro_slider"/>
+
 
         <activity
             android:name="cl.hstech.bitlog.Details"
-            android:label="@string/detalle"></activity>
+            android:label="@string/detalle"/>
 
         <activity
             android:name="cl.hstech.bitlog.Recent"
-            android:label="@string/recent"></activity>
+            android:label="@string/recent"/>
         <activity
             android:name="cl.hstech.bitlog.Signup"
-            android:label="@string/register"></activity>
+            android:label="@string/register"/>
         <activity
             android:name="cl.hstech.bitlog.Search"
-            android:label="@string/search"></activity>
-
+            android:label="@string/search"/>
         <activity
             android:name="cl.hstech.bitlog.SignIn"
-            android:label="@string/action_sign_in"></activity>
+            android:label="@string/action_sign_in"/>
 
     </application>
 

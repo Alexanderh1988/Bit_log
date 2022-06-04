@@ -101,7 +101,7 @@
         android:layout_height="50dp"
         android:layout_gravity="right|bottom"
         android:layout_marginRight="10dp"
-        android:scaleX="1.5"
+        android:scaleX="1.2"
         app:fabSize="auto"
         app:rippleColor="@color/colorPrimaryDark"
         app:srcCompat="@android:drawable/ic_menu_add" />
