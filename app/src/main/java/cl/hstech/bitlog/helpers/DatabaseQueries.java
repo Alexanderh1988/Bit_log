@@ -21,7 +21,6 @@ public class DatabaseQueries {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null)
             mFirebaseUserId = mFirebaseUser.getUid();
-
     }
 
     public FirebaseAuth getmFirebaseAuth() {

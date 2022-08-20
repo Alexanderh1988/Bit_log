@@ -29,6 +29,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.ui.AppBarConfiguration;
 
+//import com.daandtu.webscraper.WebScraper;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -36,18 +37,13 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.internal.NavigationMenuView;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import cl.hstech.bitlog.R;
 import cl.hstech.bitlog.helpers.DatabaseQueries;
 
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback,
@@ -57,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private static final int REQUEST_CODE_PERMISSION = 123;
     private static final int REQUEST_CODE = 123;
     private static final String TAG = "debug";
-    String[] mPermission = {Manifest.permission.INTERNET, Manifest.permission.VIBRATE, Manifest.permission.CAMERA};
+    String[] mPermission = {Manifest.permission.INTERNET, Manifest.permission.VIBRATE, Manifest.permission.CAMERA,
+            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
 
     SurfaceView surfaceView;
     CameraSource cameraSource;
@@ -75,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     //variables de introduccion:
     static SharedPreferences sharedPreferences;
     public static String COMPLETED_ONBOARDING_PREF_NAME = "intro";
-    Boolean goToAppIntro = false;
+    private SharedPreferences.Editor sharedPreferencesEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        SharedPreferences.Editor sharedPreferencesEditor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
+        sharedPreferencesEditor = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
         sharedPreferencesEditor.putBoolean(COMPLETED_ONBOARDING_PREF_NAME, true);
 
         isLocationPermissionSetted = new MutableLiveData<>();
@@ -94,8 +91,9 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         if (!sharedPreferences.getBoolean(COMPLETED_ONBOARDING_PREF_NAME, false)) {
             startActivity(new Intent(this, AppIntroduction.class));
-        } else
-        {  verifyRequiredPermissions(); }
+        } else {
+            verifyRequiredPermissions();
+        }
 
         setContentView(R.layout.activity_main);
         setTitle(getApplicationContext().getPackageName());
@@ -120,19 +118,18 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         navigationView.bringToFront();
 
 
-
-//        for (int i = 0; i < mPermission.length; i++) {
-//            if (ActivityCompat.checkSelfPermission(this, mPermission[i]) != PackageManager.PERMISSION_GRANTED) {
-//                ActivityCompat.requestPermissions(this, new String[]{mPermission[i]}, REQUEST_CODE_PERMISSION);
-//            }
-//        }
+        for (int i = 0; i < mPermission.length; i++) {
+            if (ActivityCompat.checkSelfPermission(this, mPermission[i]) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{mPermission[i]}, REQUEST_CODE_PERMISSION);
+            }
+        }
         //Database Initiation:
         mQuery = new DatabaseQueries();
 
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(view -> {
-            if (mQuery.getmFirebaseUserId() == null) {
+            if (mQuery.getmFirebaseUser() == null) {
                 Toast.makeText(this, "Para agregar tiene que identificarse", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, SignIn.class));
             } else
@@ -335,6 +332,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         if (id == R.id.intro) {
 
+            sharedPreferencesEditor.putBoolean(COMPLETED_ONBOARDING_PREF_NAME, true);
+
             startActivity(new Intent(this, AppIntroduction.class));
 
         }
@@ -357,11 +356,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
 
         if (id == R.id.reciente) {
-            //    if (mFirebaseUser != null) {
-            //       startActivity(new Intent(this, Recent.class));
-            //  } else {
-            startActivity(new Intent(this, SignIn.class));
-            //    }
+            if (mQuery.getmFirebaseUser() != null) {
+                startActivity(new Intent(this, Recent.class));
+            } else {
+                startActivity(new Intent(this, SignIn.class));
+            }
         } else if (id == R.id.nav_share) {
 
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -386,11 +385,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
 
         } else if (id == R.id.qr_assign) {
-            //    if (mFirebaseUser != null) {
-            //       startActivity(new Intent(this, Recent.class));
-            //  } else {
-            setTitle("Reasignar codigo");
-            //}
+            if (mQuery.getmFirebaseUser() != null) {
+                startActivity(new Intent(this, Recent.class));
+            } else {
+                setTitle("Reasignar codigo");
+            }
         } else if (id == R.id.map) {
 
             startActivity(new Intent(this, Mapa.class));

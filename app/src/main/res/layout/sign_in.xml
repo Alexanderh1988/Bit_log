@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-  >
+    android:orientation="vertical">
     tools:context=".MainActivity"
+
     <include
         android:id="@+id/toolbar_layout"
         layout="@layout/app_bar_main" />
@@ -61,7 +61,7 @@
             android:src="@mipmap/ic_user_logo" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/user_name"
@@ -69,19 +69,21 @@
             android:layout_alignRight="@+id/user_name"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:ems="10"             android:focusable="true"
+            android:ems="10"
+            android:focusable="true"
             android:hint="Password"
+            android:inputType="textPassword"
             android:textColorHint="@color/nombrePrincipal" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editText2"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Intentos pendientes:"
-            android:textSize="20dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/textView2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/editText2"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:text="Intentos pendientes:"-->
+<!--            android:textSize="20dp" />-->
 
         <TextView
             android:id="@+id/textView3"
@@ -96,16 +98,16 @@
             android:text=" "
             android:textSize="25dp" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView2"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="30dp"
-            android:text="no registrado?, registrate"
-            android:textSize="15dp" />
+<!--        <TextView-->
+<!--            android:id="@+id/textView4"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/textView2"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="no registrado?, registrate"-->
+<!--            android:textSize="15dp" />-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,7 +126,7 @@
                 android:text="Ingrese" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/singin_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/textview"

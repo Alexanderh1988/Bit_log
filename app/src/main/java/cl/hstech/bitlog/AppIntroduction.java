@@ -17,7 +17,7 @@ public class AppIntroduction extends AppCompatActivity {
     ViewPager viewPager;
     SlideAdapter slideAdapter;
 
-    //sorry for this lame intro, am not a graphical designer :/
+    //sorry for this intro..I know it's lame :/
     public static String[] titlesIntro = {"Acepta el permiso requerido", "escanea el codigo", "obten el historial"};
     public static String[] pictures = {"https://hstech.cl/BitLogIntro/Intro%20(1).jpg", "https://hstech.cl/BitLogIntro/Intro%20(2).jpg", "https://hstech.cl/BitLogIntro/Intro%20(3).jpg"};
 

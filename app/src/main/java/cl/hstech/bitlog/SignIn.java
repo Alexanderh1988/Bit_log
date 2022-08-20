@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import cl.hstech.bitlog.R;
-
 public class SignIn extends AppCompatActivity {
 
     Button b1, b2;
@@ -29,9 +27,9 @@ public class SignIn extends AppCompatActivity {
 
         b1 = (Button) findViewById(R.id.button);
         ed1 = (EditText) findViewById(R.id.user_name);
-        ed2 = (EditText) findViewById(R.id.editText2);
+        ed2 = (EditText) findViewById(R.id.password);
 
-        b2 = (Button) findViewById(R.id.button2);
+        b2 = (Button) findViewById(R.id.singin_cancel);
         tx1 = (TextView) findViewById(R.id.textView3);
         SignupPlease = findViewById(R.id.textView4);
         tx1.setVisibility(View.GONE);

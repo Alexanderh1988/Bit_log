@@ -1,8 +1,8 @@
 package cl.hstech.bitlog;
 
-import androidx.fragment.app.FragmentActivity;
-
 import android.os.Bundle;
+
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,8 +10,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import cl.hstech.bitlog.R;
 
 public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
@@ -22,8 +20,8 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-       // binding = ActivityMapa1Binding.inflate(getLayoutInflater());
-       // setContentView(binding.getRoot());
+        // binding = ActivityMapa1Binding.inflate(getLayoutInflater());
+        // setContentView(binding.getRoot());
 
         setContentView(R.layout.activity_mapa);
 
@@ -47,8 +45,16 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        getLocationData l = new getLocationData();
+
+        //https://www.coordenadas-gps.com/
+        Double lat = l.getCoordinates(getApplicationContext())[0];
+        // Log.d(TAG, "lat: " + lat);
+        Double lon = l.getCoordinates(getApplicationContext())[1];
+
+        LatLng sydney = new LatLng(lat, lon);
+
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Aqui estoy"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
